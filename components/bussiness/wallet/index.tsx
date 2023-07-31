@@ -3,7 +3,7 @@ import useWallet from './useWallet';
 import Link from 'next/link';
 
 function WalletComponent() {
-  const { loader, wBal, wName, onSubmit, onChange, walletDetails, transFields, handleTransChange, onTransSubmit } = useWallet();
+  const { toaster,loader, wBal, wName, onSubmit, onChange, walletDetails, transFields, handleTransChange, onTransSubmit } = useWallet();
 
   if (loader) {
     return <div>Loading...</div>
@@ -26,6 +26,7 @@ function WalletComponent() {
           </label>
           <button onClick={onTransSubmit}>submit</button>
           <Link href={'/transactions'}>See All Transactions</Link>
+          {toaster && <div className='snackbar'>{toaster}</div>}
         </div>
       </>
         :
