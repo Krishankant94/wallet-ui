@@ -2,7 +2,7 @@ import { walletService } from "@/services/walletservices";
 import { useEffect, useState } from "react";
 
 function useTransaction() {
- const [transactionData,setTransactionData] = useState(); 
+ const [transactionData,setTransactionData] = useState([]); 
  const [wId,setWalletId] = useState<string>('');
  const [loader,setLoader] = useState(false);
  
