@@ -38,7 +38,7 @@ function useWallet() {
      setLoader(false);
     }
   }  
-  const onChange = (e) => {
+  const onChange = (e:any) => {
     if(e.target.name==='wName'){
         setWalletName(e.target.value);
     }
@@ -47,7 +47,7 @@ function useWallet() {
     }
   }  
 
-  const handleTransChange = (e) => {
+  const handleTransChange = (e:any) => {
     if(e.target.name==='isCredit'){
       setTransFields({...transFields,[e.target.name]:e.target.checked});
     }
