@@ -7,6 +7,7 @@ function useWallet() {
   const [wBal,setWalletBal] = useState(0);
   const [walletDetails,setWallet] = useState<any>(null);
   const [transFields,setTransFields] = useState({amount:'',description:'',isCredit:true});
+  const [toaster,setToast] = useState('hi');
 
   useEffect(()=>{
     const wId = localStorage&&localStorage.getItem('walletId');
@@ -48,6 +49,7 @@ function useWallet() {
   }  
 
   const handleTransChange = (e:any) => {
+    setToast('');
     if(e.target.name==='isCredit'){
       setTransFields({...transFields,[e.target.name]:e.target.checked});
     }
@@ -56,7 +58,7 @@ function useWallet() {
     }
   }
 
-  const onTransSubmit = () => {
+  const onTransSubmit = async() => {
     let amount = Number(transFields.amount);
     if(!transFields.isCredit){
       amount = Number(-transFields.amount);
@@ -65,7 +67,19 @@ function useWallet() {
       amount:amount,
       description:transFields.description,  
     }
-    
+    setLoader(true);
+    try{
+      const wId = localStorage&&localStorage.getItem('walletId');
+      const {result} = await walletService.onWalletTransaction(wId as string,transactionPayload); 
+      console.log(result);
+      getWalletInfo(wId as string);
+      setLoader(false);
+      setToast('Transaction completed!');
+    }
+    catch(error){
+      console.log(error);
+      setLoader(false);
+    }
     console.log('transFields',transactionPayload);
   }
 
@@ -79,6 +93,7 @@ function useWallet() {
     transFields,
     handleTransChange,
     onTransSubmit,
+    toaster,
   } 
 }
 
