@@ -42,7 +42,7 @@ function Transactions() {
         <td>{"type"}</td>
          </tr>
        
-       {transactionData&&transactionData.map(item=>renderTableRow(item))}
+       {transactionData.length>0&&transactionData.map(item=>renderTableRow(item))}
        </table>
     </div>
   )
