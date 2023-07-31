@@ -1,9 +1,14 @@
 import axios from "axios";
-import { INITIATE_WALLET_URI, WALLET_ALL_TRANS_URI, WALLET_DETAILS_URI } from "./urls";
+import { INITIATE_WALLET_URI, WALLET_ALL_TRANS_URI, WALLET_DETAILS_URI, WALLET_TRANS_URI } from "./urls";
 
 type walletPayloadType = {
     balance:Number,
     name : string,
+}
+
+type transactionType = {
+    amount : number,
+    description : string,
 }
 
 const initiatWallet =async(payload:walletPayloadType) => {
@@ -11,8 +16,9 @@ const initiatWallet =async(payload:walletPayloadType) => {
  return result.data; 
 }
 
-const onWalletTransaction = () => {
-  
+const onWalletTransaction = async (id:string,payload:transactionType) => {
+    const result = await axios.post(`${WALLET_TRANS_URI}/${id}`,payload);
+    return result.data; 
 }
 
 const getAllTransactions =async (id:string,skip:number,limit:number) => {
